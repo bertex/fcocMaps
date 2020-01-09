@@ -11,12 +11,13 @@ const pool = new Pool({
 });
 
 const getGeojson = (request, response, next) => {
-    let queryLayer = 'SELECT  nomprov, geom FROM provincies;'
+    let queryLayer = 'SELECT  st_asGeoJson(geom) as geometry FROM cat;'
     pool.query(queryLayer, (err, res) => {
         if (err) {
             return console.error('Error ejecutando la consulta. ', err.stack)
         }
-        let geojson = GeoJSON.parse(res.rows, { MultiPolygon: 'geom' });
+        let geojson = GeoJSON.parse(res.rows, {GeoJSON : 'geometry' });
+        console.log(res.rows);
         response.json(geojson);
     })
 }
