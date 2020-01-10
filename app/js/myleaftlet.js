@@ -1,3 +1,6 @@
+'use strict';
+/*jshint esversion: 6 */
+/*jshint node:true */
 var myStyle = {
     fillColor: "green",
     weight: 2,
@@ -6,7 +9,7 @@ var myStyle = {
     dashArray: '3',
     fillOpacity: 0.7
 };
-var bcn = $.ajax({
+$.ajax({
     type: "GET",
     url: "http://localhost:3000/api/layers/layer",
     dataType: "json",
@@ -14,7 +17,7 @@ var bcn = $.ajax({
         var myLayer = L.geoJSON(response, {style: myStyle}).addTo(mymap);
     },
     error: function (xhr) {
-        alert(xhr.statusText)
+      console.log("error intern");
     }
 });
 var mymap = L.map('mapid').setView([41.50, 1.50], 7);

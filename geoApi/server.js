@@ -1,4 +1,7 @@
+'use strict';
 //server.js
+/*jshint esversion: 6 */
+/*jshint node:true */
 const express = require("express");
 const app = express();
 const layerRouter = require('./routes/api');

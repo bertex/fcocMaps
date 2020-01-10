@@ -14,7 +14,6 @@ app.controller("GeoJSONController", [ '$scope', '$http', 'leafletData', function
   $http.get("../geodata/cat.geojson").then(successCallback,errorCallback);
 
   function successCallback(response) {
-    console.log(response);
     angular.extend($scope, {
       geojson: {
         data: response.data,
@@ -28,8 +27,7 @@ app.controller("GeoJSONController", [ '$scope', '$http', 'leafletData', function
         }
       }
     });
-  };
+  }
   function errorCallback (response) {
-    console.log ("error");
   }
 }]);

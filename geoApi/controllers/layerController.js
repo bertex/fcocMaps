@@ -1,4 +1,7 @@
-const Pool = require('pg').Pool
+'use strict';
+/*jshint esversion: 6 */
+/*jshint node:true */
+const Pool = require('pg').Pool;
 const GeoJSON = require('geojson');
 const config = require('../config');
 const { db: { user, host, database, password, port } } = config;
@@ -11,10 +14,10 @@ const pool = new Pool({
 });
 
 const getGeojson = (request, response, next) => {
-    let queryLayer = 'SELECT  st_asGeoJson(geom) as geometry FROM test;'
+    let queryLayer = 'SELECT  st_asGeoJson(geom) as geometry FROM test;';
     pool.query(queryLayer, (err, res) => {
         if (err) {
-            return console.error('Error ejecutando la consulta. ', err.stack)
+            return console.error('Error ejecutando la consulta. ', err.stack);
         }
         let data = res.rows;
         data.forEach( function (item, index, array){
@@ -23,6 +26,6 @@ const getGeojson = (request, response, next) => {
         });
         let geojson = GeoJSON.parse(data, {GeoJSON : 'geometry' });
         response.json(geojson);
-    })
-}
-module.exports = { getGeojson }
+    });
+};
+module.exports = { getGeojson };

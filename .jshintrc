@@ -1,0 +1,10 @@
+{
+  "strict": "global",
+  "globals": {
+    "angular": false,
+    "$": false,
+    "L": false,
+    "module": false,
+    "inject": false
+  }
+}
