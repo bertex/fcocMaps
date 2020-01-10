@@ -11,13 +11,17 @@ const pool = new Pool({
 });
 
 const getGeojson = (request, response, next) => {
-    let queryLayer = 'SELECT  st_asGeoJson(geom) as geometry FROM cat;'
+    let queryLayer = 'SELECT  st_asGeoJson(geom) as geometry FROM test;'
     pool.query(queryLayer, (err, res) => {
         if (err) {
             return console.error('Error ejecutando la consulta. ', err.stack)
         }
-        let geojson = GeoJSON.parse(res.rows, {GeoJSON : 'geometry' });
-        console.log(res.rows);
+        let data = res.rows;
+        data.forEach( function (item, index, array){
+            var geo  = JSON.parse (array[index].geometry);
+            array[index].geometry = geo;
+        });
+        let geojson = GeoJSON.parse(data, {GeoJSON : 'geometry' });
         response.json(geojson);
     })
 }
